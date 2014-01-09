@@ -1,5 +1,7 @@
 ﻿namespace FSharpPlus
 
+#if NOTNET35
+
 open FsControl.Core.TypeMethods
 open FSharpPlus.Operators
 
@@ -40,3 +42,5 @@ type ParallelArray with
     static member instance (_:Applicative.Apply, f:parray<'a->'b>, x:parray<_> ,_:parray<'b>) = fun () -> ParallelArray.ap f x :parray<'b>
     static member inline instance (_:Monoid.Mempty , _:parray<'m>   ) = fun () -> Bounded (mempty()) : parray<'m>
     static member inline instance (_:Monoid.Mappend, x:parray<'m>, _) = fun (y:parray<'m>) -> liftA2 mappend x y:parray<'m>
+
+#endif
